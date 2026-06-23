@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cybersecurity Log Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Cybersecurity Log Analyzer</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="logfile" required>
+        <button type="submit">Analyze Log</button>
+    </form>
+
+    {% if total_failed > 0 %}
+
+    <div class="result">
+
+        <h2>Analysis Report</h2>
+
+        <p>
+            Total Failed Login Attempts:
+            <strong>{{ total_failed }}</strong>
+        </p>
+
+        <h3>Suspicious IP Addresses</h3>
+
+        <table>
+            <tr>
+                <th>IP Address</th>
+                <th>Attempts</th>
+            </tr>
+
+            {% for ip,count in suspicious_ips.items() %}
+            <tr>
+                <td>{{ ip }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+
